@@ -5,9 +5,17 @@ import ThumbsDown from "@/assets/icons/ThumbsDown";
 import ThumbsUp from "@/assets/icons/ThumbsUp";
 import Image from "next/image";
 
-export default function BoxReview() {
+type Props = {
+  className?: string;
+};
+
+export default function BoxReview({ className = "" }: Props) {
   return (
-    <div className="bg-[#FAFCFD] dark:bg-[#18181B] rounded shadow p-4">
+    <div
+      className={
+        "bg-[#FAFCFD] dark:bg-[#18181B] rounded shadow p-4 " + className
+      }
+    >
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <Image

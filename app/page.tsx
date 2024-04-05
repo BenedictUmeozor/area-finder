@@ -8,10 +8,10 @@ export default function Home() {
     <section className="page-section">
       <Header />
       <main>
-        <Container className="h-full max-md:grid max-md:place-items-center flex items-center justify-center gap-[7.5%]">
+        <Container className="h-full max-lg:grid max-lg:place-items-center flex items-center justify-center gap-[7.5%]">
           <div className="flex-1">
             <h1 className="font-bold max-md:text-4xl text-6xl mb-8">
-              Find a place you <br className="max-md:hidden" /> will love to live!
+              Find a place you <br className="max-lg:hidden" /> will love to live!
             </h1>
             <p className="text-lg mb-6 max-md:text-base">
               See through the lenses of people who have lived or visited the
@@ -27,7 +27,7 @@ export default function Home() {
             </div>
             <button className="button">Search</button>
           </div>
-          <div className="max-md:hidden flex-1 grid grid-cols-2 gap-4 self-start">
+          <div className="max-lg:hidden flex-1 grid grid-cols-2 gap-4 self-start">
             <BoxReview />
             <BoxReview />
             <BoxReview />

@@ -41,8 +41,8 @@ const SearchHeader = memo(({ action }: Props) => {
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
           </div>
-          <div className="flex items-center justify-between max-md:block">
-            <div className="flex-[2] max-md:text-center max-md:mb-4">
+          <div className="flex items-center justify-between max-lg:block">
+            <div className="flex-[2] max-md:text-center max-lg:mb-4">
               <h3 className="font-semibold text-2xl mb-1 max-md:text-xl">
                 Bonny and Clyde Street, Ajao Estate, Lagos
               </h3>
@@ -63,7 +63,7 @@ const SearchHeader = memo(({ action }: Props) => {
                 ))}
               </div>
             </div>
-            <div className="flex-1 flex items-center gap-2">
+            <div className="flex-1 flex items-center gap-2 max-md:max-w-full max-lg:max-w-md">
               <button
                 className="flex-1 bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] h-11 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear"
                 onClick={action}
@@ -85,7 +85,7 @@ const SearchHeader = memo(({ action }: Props) => {
               {categories.map((c) => (
                 <button
                   key={c}
-                  className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2"
+                  className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
                 >
                   {c}
                 </button>
