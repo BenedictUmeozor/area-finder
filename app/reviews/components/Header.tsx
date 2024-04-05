@@ -7,6 +7,7 @@ import Logo from "@/components/Logo";
 import SearchBlue from "@/assets/icons/SearchBlue";
 import { KeyboardEvent, memo, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const Header = memo(() => {
   const searchParams = useSearchParams();
@@ -47,13 +48,15 @@ const Header = memo(() => {
         </div>
         <div className="flex-1 flex items-center justify-end gap-2">
           <span className="font-semibold max-md:hidden">Welcome!</span>
-          <Image
-            src={avatar}
-            alt="avatar"
-            height={50}
-            width={50}
-            className="w-10 rounded-[50%] cursor-pointer"
-          />
+          <Link href="/login">
+            <Image
+              src={avatar}
+              alt="avatar"
+              height={50}
+              width={50}
+              className="w-10 rounded-[50%] cursor-pointer"
+            />
+          </Link>
         </div>
       </Container>
     </header>
