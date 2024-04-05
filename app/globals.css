@@ -3,31 +3,68 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  font-size: 16px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: "ClashDisplay-Regular";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Regular.woff2") format("woff2"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Regular.woff") format("woff"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+  font-family: "ClashDisplay-Medium";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Medium.woff2") format("woff2"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Medium.woff") format("woff"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@font-face {
+  font-family: "ClashDisplay-Semibold";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Semibold.woff2") format("woff2"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Semibold.woff") format("woff"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Bold";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Bold.woff2") format("woff2"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Bold.woff") format("woff"),
+    url("/Fonts/WEB/fonts/ClashDisplay-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+.clash-regular {
+  font-family: "ClashDisplay-Regular";
+}
+.clash-medium {
+  font-family: "ClashDisplay-Medium";
+}
+.clash-semibold {
+  font-family: "ClashDisplay-Semibold";
+}
+.clash-bold {
+  font-family: "ClashDisplay-Bold";
+}
+
+.page-section {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.button {
+  @apply bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-36 py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear;
 }
