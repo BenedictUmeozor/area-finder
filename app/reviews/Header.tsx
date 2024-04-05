@@ -5,8 +5,30 @@ import avatar from "@/assets/avatar.png";
 import Container from "@/components/Container";
 import Logo from "@/components/Logo";
 import SearchBlue from "@/assets/icons/SearchBlue";
+import { KeyboardEvent, memo, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Header() {
+const Header = memo(() => {
+  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [address, setAddress] = useState(
+    "Bonny and Clyde Street, Ajao Estate, Lagos"
+  );
+  const router = useRouter();
+
+  const runSearch = ({ key }: KeyboardEvent<HTMLInputElement>) => {
+    if (key === "Enter" && address) {
+      router.push("/review?s=" + address);
+    }
+  };
+
+  useEffect(() => {
+    if (searchParams.get("s")) {
+      const term = searchParams.get("s");
+      setSearchTerm(term!);
+    }
+  }, [searchParams]);
+
   return (
     <header className="py-4">
       <Container className="flex items-center justify-between">
@@ -16,8 +38,9 @@ export default function Header() {
             <input
               type="search"
               placeholder="Enter Address"
-              defaultValue="Bonny and Clyde Street, Ajao Estate, Lagos"
+              defaultValue={searchTerm}
               className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2"
+              onKeyDown={runSearch}
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
           </div>
@@ -35,4 +58,7 @@ export default function Header() {
       </Container>
     </header>
   );
-}
+});
+
+Header.displayName = "Header";
+export default Header;

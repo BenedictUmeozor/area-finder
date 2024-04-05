@@ -4,19 +4,36 @@ import Container from "@/components/Container";
 import SearchHeader from "./SearchHeader";
 import Review from "@/components/Review";
 import CreateReview from "@/components/CreateReview";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CheckCircle from "@/assets/icons/CheckCircle";
 import DesktopGrid from "./DesktopGrid";
 import MobileGrid from "./MobileGrid";
+import { Review as ReviewType } from "@/types/types";
+import { generateRandomReviews } from "@/utils/functions";
+import ReviewSkeleton from "@/components/ReviewSkeleton";
 
 export default function Page() {
   const [showForm, setShowForm] = useState(false);
+  const [reviews, setReviews] = useState<ReviewType[]>([]);
 
   const displayForm = () => setShowForm(true);
   const removeForm = () => setShowForm(false);
 
-  const submitForm = () => {
+  const addToReviews = (review: ReviewType) => {
+    const updated = [review, ...reviews];
+    setReviews(updated);
+  };
+
+  useEffect(() => {
+    if (reviews.length === 0) {
+      const randReviews = generateRandomReviews();
+      setReviews(randReviews);
+    }
+  }, [reviews]);
+
+  const submitForm = (review: ReviewType) => {
+    addToReviews(review);
     removeForm();
     toast("Review submitted", {
       icon: <CheckCircle />,
@@ -36,15 +53,18 @@ export default function Page() {
         <SearchHeader action={displayForm} />
         <main>
           <Container className="h-full flex max-md:flex-col py-6 gap-[3.5%]">
-            <div className="flex-[3] flex flex-col gap-4 max-md:order-2">
-              <Review />
-              <Review />
-              <Review />
-              <Review />
-              <Review />
-              <Review />
-              <Review />
-            </div>
+            {reviews.length > 0 ? (
+              <>
+                {" "}
+                <div className="flex-[3] flex flex-col gap-4 max-md:order-2">
+                  {reviews.map((review) => (
+                    <Review key={review.id} review={review} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <ReviewSkeleton />
+            )}
             <div className="flex-[2] max-md:order-1">
               <MobileGrid />
               <DesktopGrid />

@@ -1,12 +1,15 @@
 "use client";
 
+import { Review } from "@/types/types";
 import { Rating } from "@smastrom/react-rating";
+import { formatDistanceToNowStrict } from "date-fns";
+import { useSearchParams } from "next/navigation";
 import { FormEvent, memo, useEffect, useState } from "react";
 import { ChevronDown } from "react-feather";
 import { v4 as uuidV4 } from "uuid";
 
 type Props = {
-  action: () => void;
+  action: (review: Review) => void;
   close: () => void;
 };
 
@@ -43,7 +46,12 @@ const CreateReview = memo(({ action, close }: Props) => {
   const [showAmenities, setShowAmenities] = useState(false);
   const [review, setReview] = useState("");
   const [chosenAmenities, setChosenAmenities] = useState<string[]>([]);
+  const [anonymous, setAnonymous] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(
+    "Bonny and Clyde Street, Ajao Estate, Lagos"
+  );
+  const searchParams = useSearchParams();
 
   const modifyAmenities = (checked: boolean, value: string) => {
     if (checked) {
@@ -63,9 +71,27 @@ const CreateReview = memo(({ action, close }: Props) => {
     }
   }, [review, rating, chosenAmenities]);
 
+  useEffect(() => {
+    if (searchParams.get("s")) {
+      const term = searchParams.get("s");
+      setSearchTerm(term!);
+    }
+  }, [searchParams]);
+
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    action();
+    const reviewToAdd: Review = {
+      anonymous,
+      body: review,
+      comments: Math.floor(Math.random() * 500),
+      date: formatDistanceToNowStrict(new Date(Date.now())),
+      dislikes: Math.floor(Math.random() * 100),
+      id: uuidV4(),
+      likes: Math.floor(Math.random() * 1000),
+      name: "James T.",
+      rating,
+    };
+    action(reviewToAdd);
   };
 
   return (
@@ -75,9 +101,7 @@ const CreateReview = memo(({ action, close }: Props) => {
         className="max-w-2xl w-full bg-[#FAFCFD] rounded border border-[#D4DCF1] dark:bg-[#171717] p-4 py-6"
       >
         <h2 className="text-center mb-2 font-[500]">Review Location</h2>
-        <p className="text-xl font-semibold mb-4">
-          Bonny and Clyde Street, Ajao Estate, Lagos
-        </p>
+        <p className="text-xl font-semibold mb-4">{searchTerm}</p>
         <div className="mb-4 relative">
           <div
             className="flex items-center justify-between bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 h-12 cursor-pointer"
@@ -89,7 +113,10 @@ const CreateReview = memo(({ action, close }: Props) => {
           {showAmenities && (
             <div className="bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 max-md:grid-cols-3 p-4">
               {amenities.map((amenity) => (
-                <div key={uuidV4()} className="flex items-center gap-4 max-md:gap-2">
+                <div
+                  key={uuidV4()}
+                  className="flex items-center gap-4 max-md:gap-2"
+                >
                   <input
                     type="checkbox"
                     name={"amenity"}
@@ -127,7 +154,12 @@ const CreateReview = memo(({ action, close }: Props) => {
           ></textarea>
         </div>
         <div className="mb-4 flex items-center gap-2">
-          <input type="checkbox" name="anonymous" id="anonymous" />
+          <input
+            type="checkbox"
+            name="anonymous"
+            id="anonymous"
+            onChange={(e) => setAnonymous((prev) => !prev)}
+          />
           <label htmlFor="anonymous">Post as anonymous</label>
         </div>
         <div className="flex items-center gap-4">

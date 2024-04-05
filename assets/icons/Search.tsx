@@ -1,7 +1,8 @@
 type Props = {
   className?: string;
+  onClick?: () => void;
 };
-export default function SearchIcon({ className = "" }: Props) {
+export default function SearchIcon({ className = "", onClick }: Props) {
   return (
     <svg
       width="16"
@@ -10,6 +11,7 @@ export default function SearchIcon({ className = "" }: Props) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      onClick={onClick}
     >
       <path
         fillRule="evenodd"

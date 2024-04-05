@@ -3,8 +3,11 @@ import Header from "./Header";
 import Bookmark from "@/assets/icons/Bookmark";
 import Share from "@/assets/icons/Share";
 import { ChevronRight } from "react-feather";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import SearchBlue from "@/assets/icons/SearchBlue";
+import { useSearchParams } from "next/navigation";
+import CheckCircle from "@/assets/icons/CheckCircle";
+import toast from "react-hot-toast";
 
 const categories = [
   "schools",
@@ -27,6 +30,30 @@ type Props = {
 };
 
 const SearchHeader = memo(({ action }: Props) => {
+  const searchParams = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    "Bonny and Clyde Street, Ajao Estate, Lagos"
+  );
+
+  const bookmarkLocation = () => {
+    toast("Location added to Bookmarks", {
+      icon: <CheckCircle />,
+      style: {
+        border: "2px solid #0F920F",
+        padding: "16px",
+        color: "#0F920F",
+        background: "#F2FDF2",
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (searchParams.get("s")) {
+      const term = searchParams.get("s");
+      setSearchTerm(term!);
+    }
+  }, [searchParams]);
+
   return (
     <>
       <section className="bg-lighter_bg dark:bg-dark_bg pb-4">
@@ -36,15 +63,15 @@ const SearchHeader = memo(({ action }: Props) => {
             <input
               type="search"
               placeholder="Enter Address"
-              defaultValue="Bonny and Clyde Street, Ajao Estate, Lagos"
-              className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2"
+              defaultValue={searchTerm}
+              className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2 text-[0.8rem]"
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
           </div>
           <div className="flex items-center justify-between max-lg:block">
             <div className="flex-[2] max-md:text-center max-lg:mb-4">
               <h3 className="font-semibold text-2xl mb-1 max-md:text-xl">
-                Bonny and Clyde Street, Ajao Estate, Lagos
+                {searchTerm}
               </h3>
               <p className="max-md:text-[0.9rem]">
                 <span className="font-semibold">{`"450"`}</span> Reviews (People
@@ -71,7 +98,10 @@ const SearchHeader = memo(({ action }: Props) => {
                 leave a review
               </button>
               <div className="flex-1 flex items-center gap-2">
-                <button className="flex-1 border rounded border-light_button flex items-center justify-center h-11">
+                <button
+                  className="flex-1 border rounded border-light_button flex items-center justify-center h-11"
+                  onClick={bookmarkLocation}
+                >
                   <Bookmark className="w-5" />
                 </button>
                 <button className="flex-1 border rounded border-light_button flex items-center justify-center h-11">
