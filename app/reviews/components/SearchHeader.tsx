@@ -3,11 +3,12 @@ import Header from "./Header";
 import Bookmark from "@/assets/icons/Bookmark";
 import Share from "@/assets/icons/Share";
 import { ChevronRight } from "react-feather";
-import { memo, useEffect, useState } from "react";
+import { Suspense, memo, useEffect, useState } from "react";
 import SearchBlue from "@/assets/icons/SearchBlue";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import CheckCircle from "@/assets/icons/CheckCircle";
 import toast from "react-hot-toast";
+import Skeleton from "react-loading-skeleton";
 
 const categories = [
   "schools",
@@ -34,6 +35,8 @@ const SearchHeader = memo(({ action }: Props) => {
   const [searchTerm, setSearchTerm] = useState(
     "Bonny and Clyde Street, Ajao Estate, Lagos"
   );
+  const [address, setAddress] = useState("");
+  const router = useRouter();
 
   const bookmarkLocation = () => {
     toast("Location added to Bookmarks", {
@@ -47,6 +50,14 @@ const SearchHeader = memo(({ action }: Props) => {
     });
   };
 
+  const runSearch = () => {
+    if (address) {
+      router.push("/reviews?s=" + address);
+    } else {
+      router.push("/reviews");
+    }
+  };
+
   useEffect(() => {
     if (searchParams.get("s")) {
       const term = searchParams.get("s");
@@ -57,7 +68,9 @@ const SearchHeader = memo(({ action }: Props) => {
   return (
     <>
       <section className="bg-lighter_bg dark:bg-dark_bg pb-4">
-        <Header />
+        <Suspense fallback={<Skeleton height={100} width={"100%"} />}>
+          <Header />
+        </Suspense>
         <Container>
           <div className="relative h-14 md:hidden mb-2">
             <input
@@ -65,8 +78,15 @@ const SearchHeader = memo(({ action }: Props) => {
               placeholder="Enter Address"
               defaultValue={searchTerm}
               className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2 text-[0.8rem]"
+              onChange={(e) => setAddress(e.target.value)}
             />
-            <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
+            <SearchBlue
+              className={
+                "w-4 absolute top-1/2 left-[2%] -translate-y-1/2 " +
+                (address.length > 0 ? "blink" : "")
+              }
+              onClick={runSearch}
+            />
           </div>
           <div className="flex items-center justify-between max-lg:block">
             <div className="flex-[2] max-md:text-center max-lg:mb-4">

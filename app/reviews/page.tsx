@@ -4,7 +4,7 @@ import Container from "@/components/Container";
 import SearchHeader from "./components/SearchHeader";
 import Review from "@/app/reviews/components/Review";
 import CreateReview from "@/app/reviews/components/CreateReview";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CheckCircle from "@/assets/icons/CheckCircle";
 import DesktopGrid from "./components/DesktopGrid";
@@ -12,6 +12,7 @@ import MobileGrid from "./components/MobileGrid";
 import { Review as ReviewType } from "@/types/types";
 import { generateRandomReviews } from "@/utils/functions";
 import ReviewSkeleton from "@/app/reviews/components/ReviewSkeleton";
+import Skeleton from "react-loading-skeleton";
 
 export default function Page() {
   const [showForm, setShowForm] = useState(false);
@@ -50,7 +51,9 @@ export default function Page() {
     <>
       {showForm && <CreateReview action={submitForm} close={removeForm} />}
       <section className="page-section">
-        <SearchHeader action={displayForm} />
+        <Suspense fallback={<Skeleton height={300} width={"100%"} />}>
+          <SearchHeader action={displayForm} />
+        </Suspense>
         <main>
           <Container className="h-full flex max-md:flex-col py-6 gap-[3.5%]">
             {reviews.length > 0 ? (

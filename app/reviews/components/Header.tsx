@@ -11,15 +11,15 @@ import Link from "next/link";
 
 const Header = memo(() => {
   const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [address, setAddress] = useState(
+  const [searchTerm, setSearchTerm] = useState(
     "Bonny and Clyde Street, Ajao Estate, Lagos"
   );
+  const [address, setAddress] = useState("");
   const router = useRouter();
 
   const runSearch = ({ key }: KeyboardEvent<HTMLInputElement>) => {
     if (key === "Enter" && address) {
-      router.push("/review?s=" + address);
+      router.push("/reviews?s=" + address);
     }
   };
 
@@ -41,6 +41,7 @@ const Header = memo(() => {
               placeholder="Enter Address"
               defaultValue={searchTerm}
               className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2"
+              onChange={(e) => setAddress(e.target.value)}
               onKeyDown={runSearch}
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
