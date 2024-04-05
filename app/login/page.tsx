@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/components/Container";
-import Header from "./Header";
+import Header from "./components/Header";
 import { useState } from "react";
 import { Eye, EyeOff } from "react-feather";
 import google from "@/assets/google-g-2015.svg";

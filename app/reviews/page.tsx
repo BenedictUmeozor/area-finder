@@ -1,17 +1,17 @@
 "use client";
 
 import Container from "@/components/Container";
-import SearchHeader from "./SearchHeader";
-import Review from "@/components/Review";
-import CreateReview from "@/components/CreateReview";
+import SearchHeader from "./components/SearchHeader";
+import Review from "@/app/reviews/components/Review";
+import CreateReview from "@/app/reviews/components/CreateReview";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import CheckCircle from "@/assets/icons/CheckCircle";
-import DesktopGrid from "./DesktopGrid";
-import MobileGrid from "./MobileGrid";
+import DesktopGrid from "./components/DesktopGrid";
+import MobileGrid from "./components/MobileGrid";
 import { Review as ReviewType } from "@/types/types";
 import { generateRandomReviews } from "@/utils/functions";
-import ReviewSkeleton from "@/components/ReviewSkeleton";
+import ReviewSkeleton from "@/app/reviews/components/ReviewSkeleton";
 
 export default function Page() {
   const [showForm, setShowForm] = useState(false);

@@ -17,7 +17,7 @@ export default function Header() {
             alt="avatar"
             height={50}
             width={50}
-            className="w-10 rounded-[50%]"
+            className="w-10 rounded-[50%] cursor-pointer"
           />
         </div>
       </Container>
