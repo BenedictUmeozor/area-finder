@@ -66,5 +66,5 @@
 }
 
 .button {
-  @apply bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-36 py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear;
+  @apply bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-36 py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2;
 }

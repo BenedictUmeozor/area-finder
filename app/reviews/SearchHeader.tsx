@@ -56,7 +56,7 @@ const SearchHeader = memo(({ action }: Props) => {
                 {categories.slice(0, 5).map((c) => (
                   <button
                     key={c}
-                    className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2"
+                    className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
                   >
                     {c}
                   </button>

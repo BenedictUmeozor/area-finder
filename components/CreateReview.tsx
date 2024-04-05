@@ -87,9 +87,9 @@ const CreateReview = memo(({ action, close }: Props) => {
             <ChevronDown className="w-4" />
           </div>
           {showAmenities && (
-            <div className="bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 p-4">
+            <div className="bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 max-md:grid-cols-3 p-4">
               {amenities.map((amenity) => (
-                <div key={uuidV4()} className="flex items-center gap-4">
+                <div key={uuidV4()} className="flex items-center gap-4 max-md:gap-2">
                   <input
                     type="checkbox"
                     name={"amenity"}
