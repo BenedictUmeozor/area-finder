@@ -1,21 +1,21 @@
 "use client";
 
+import { useState, useEffect, Suspense } from "react";
 import Container from "@/components/Container";
 import SearchHeader from "./components/SearchHeader";
 import Review from "@/app/reviews/components/Review";
 import CreateReview from "@/app/reviews/components/CreateReview";
-import { Suspense, useEffect, useState } from "react";
+import { Review as ReviewType } from "@/types/types";
+import { generateRandomReviews } from "@/utils/functions";
+import ReviewSkeleton from "@/app/reviews/components/ReviewSkeleton";
 import toast from "react-hot-toast";
 import CheckCircle from "@/assets/icons/CheckCircle";
 import DesktopGrid from "./components/DesktopGrid";
 import MobileGrid from "./components/MobileGrid";
-import { Review as ReviewType } from "@/types/types";
-import { generateRandomReviews } from "@/utils/functions";
-import ReviewSkeleton from "@/app/reviews/components/ReviewSkeleton";
 import Skeleton from "react-loading-skeleton";
 import { v4 as uuidV4 } from "uuid";
 
-const review = {
+const reviewData = {
   id: uuidV4(),
   body: "There is no stable electricity. The roads are fairly good and there is a sense of community. The drainage system is poor and most residents litter their surroundings. There are several grocery stores and Supermarkets.",
   rating: 4.0,
@@ -61,11 +61,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    if (showForm) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = showForm ? "hidden" : "auto";
   }, [showForm]);
 
   return (
@@ -79,12 +75,13 @@ export default function Page() {
           <Container className="h-full flex max-md:flex-col py-6 gap-[3.5%] max-md:gap-8">
             {reviews.length > 0 ? (
               <>
-                {" "}
                 <div className="flex-[3] flex flex-col gap-4 max-md:order-2">
-                  <Review key={uuidV4()} review={review} />
+                  <Review key={reviewData.id} review={reviewData} />
                   <div className="flex items-center justify-between border-b border-b-[#D9D9D9] pb-4">
                     <p>Add a comment</p>
-                    <button className="bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-fit py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2">POST</button>
+                    <button className="bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-fit py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2">
+                      POST
+                    </button>
                   </div>
                   {reviews.map((review) => (
                     <Review key={review.id} review={review} />

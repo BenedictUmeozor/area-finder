@@ -1,12 +1,12 @@
 "use client";
 
-import { Review } from "@/types/types";
+import { useState, useEffect, memo, FormEvent } from "react";
 import { Rating } from "@smastrom/react-rating";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, memo, useEffect, useState } from "react";
-import { ChevronDown } from "react-feather";
+import { ChevronDown, ChevronUp } from "react-feather";
 import { v4 as uuidV4 } from "uuid";
+import { Review } from "@/types/types";
 
 type Props = {
   action: (review: Review) => void;
@@ -16,29 +16,29 @@ type Props = {
 const amenities: string[] = [
   "parking lot",
   "free wifi",
-  "parking lot",
-  "free wifi",
-  "parking lot",
   "nightlife",
   "pet store",
-  "nightlife",
-  "pet store",
-  "nightlife",
   "hospitals",
   "childcare",
-  "hospitals",
-  "childcare",
-  "hospitals",
   "adult home",
   "gym",
-  "adult home",
-  "gym",
-  "adult home",
   "schools",
   "security",
-  "schools",
-  "security",
-  "schools",
+  "pool",
+  "library",
+  "restaurant",
+  "playground",
+  "laundry",
+  "spa",
+  "supermarket",
+  "pharmacy",
+  "bank",
+  "park",
+  "coffee shop",
+  "garden",
+  "cinema",
+  "tennis",
+  "club",
 ];
 
 const CreateReview = memo(({ action, close }: Props) => {
@@ -53,16 +53,6 @@ const CreateReview = memo(({ action, close }: Props) => {
   );
   const searchParams = useSearchParams();
 
-  const modifyAmenities = (checked: boolean, value: string) => {
-    if (checked) {
-      chosenAmenities.push(value);
-    } else {
-      const newAmenities = chosenAmenities.filter((a) => a !== value);
-      console.log("new : " + newAmenities);
-      setChosenAmenities(newAmenities);
-    }
-  };
-
   useEffect(() => {
     if (review.length > 0 && rating > 0 && chosenAmenities.length > 0) {
       setDisableButton(false);
@@ -73,10 +63,18 @@ const CreateReview = memo(({ action, close }: Props) => {
 
   useEffect(() => {
     if (searchParams.get("s")) {
-      const term = searchParams.get("s");
-      setSearchTerm(term!);
+      const term = searchParams.get("s")!;
+      setSearchTerm(term);
     }
   }, [searchParams]);
+
+  const modifyAmenities = (checked: boolean, value: string) => {
+    if (checked) {
+      setChosenAmenities((prev) => [...prev, value]);
+    } else {
+      setChosenAmenities((prev) => prev.filter((a) => a !== value));
+    }
+  };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -108,7 +106,11 @@ const CreateReview = memo(({ action, close }: Props) => {
             onClick={() => setShowAmenities((prev) => !prev)}
           >
             <span>Select Amenities</span>
-            <ChevronDown className="w-4" />
+            {!showAmenities ? (
+              <ChevronDown className="w-4" />
+            ) : (
+              <ChevronUp className="w-4" />
+            )}
           </div>
           {showAmenities && (
             <div className="bg-lighter_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 max-md:grid-cols-1 max-md:gap-1 p-4 max-md:max-h-[700%] overflow-y-auto">
@@ -119,13 +121,15 @@ const CreateReview = memo(({ action, close }: Props) => {
                 >
                   <input
                     type="checkbox"
-                    name={"amenity"}
+                    name="amenity"
                     id={amenity}
                     value={amenity}
                     onChange={(e) => modifyAmenities(e.target.checked, amenity)}
                     defaultChecked={chosenAmenities.includes(amenity)}
                   />
-                  <label htmlFor={amenity} className="text-[0.85rem]">{amenity}</label>
+                  <label htmlFor={amenity} className="text-[0.85rem]">
+                    {amenity}
+                  </label>
                 </div>
               ))}
             </div>

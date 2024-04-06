@@ -1,5 +1,3 @@
-"use client";
-
 import SearchBlue from "@/assets/icons/SearchBlue";
 import { Location } from "@/types/types";
 import { useRouter } from "next/navigation";
@@ -15,6 +13,7 @@ export default function MobileSearch({ searchParams }: Props) {
   const [address, setAddress] = useState(
     searchParams || "Bonny and Clyde Street, Ajao Estate, Lagos"
   );
+
   const router = useRouter();
 
   const runSearch = () => {
@@ -69,7 +68,7 @@ export default function MobileSearch({ searchParams }: Props) {
         onClick={runSearch}
       />
       {suggestions && (
-        <ul className="absolute top-full left-0 w-full max-h-[700%] z-10 bg-lighter_bg dark:bg-[#242428] rounded-md">
+        <ul className="absolute top-[110%] shadow left-0 w-full max-h-[700%] z-10 bg-lighter_bg dark:bg-[#242428] rounded-md">
           {suggestions.map((suggestion) => (
             <li
               key={uuidV4()}

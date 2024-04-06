@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import avatar from "@/assets/avatar.png";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useState, useEffect, memo, ChangeEvent, KeyboardEvent } from "react";
+import { v4 as uuidV4 } from "uuid";
 import Container from "@/components/Container";
 import Logo from "@/components/Logo";
 import SearchBlue from "@/assets/icons/SearchBlue";
-import { ChangeEvent, KeyboardEvent, memo, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import { Location } from "@/types/types";
-import { v4 as uuidV4 } from "uuid";
+import avatar from "@/assets/avatar.png";
 
 const Header = memo(() => {
   const searchParams = useSearchParams();
@@ -69,7 +69,7 @@ const Header = memo(() => {
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
             {suggestions && (
-              <ul className="absolute top-full left-0 w-full max-h-[700%] z-10 bg-lighter_bg dark:bg-[#242428] rounded-md">
+              <ul className="absolute top-[110%] shadow left-0 w-full max-h-[700%] z-10 bg-lighter_bg dark:bg-[#242428] rounded-md">
                 {suggestions.map((suggestion) => (
                   <li
                     key={uuidV4()}
