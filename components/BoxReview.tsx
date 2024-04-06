@@ -7,9 +7,10 @@ import Image from "next/image";
 
 type Props = {
   className?: string;
+  amenity: string;
 };
 
-export default function BoxReview({ className = "" }: Props) {
+export default function BoxReview({ className = "", amenity }: Props) {
   return (
     <div
       className={
@@ -58,9 +59,23 @@ export default function BoxReview({ className = "" }: Props) {
           </p>
         </div>
         <div className="flex-1">
-          <span className="py-1 px-2 rounded-2xl bg-[#FCDCEF] border border-[#821958] text-[#821958] text-xs">
-            network
-          </span>
+          {amenity === "network" ? (
+            <span className="py-1 px-2 rounded-2xl bg-[#FCDCEF] border border-[#821958] text-[#821958] text-xs">
+              network
+            </span>
+          ) : amenity === "water" ? (
+            <span className="py-1 px-2 rounded-2xl bg-[#D1E4FA] border border-[#2863B8] text-[#2863B8] text-xs">
+              water
+            </span>
+          ) : amenity === "traffic" ? (
+            <span className="py-1 px-2 rounded-2xl bg-[#F5E9CB] border border-[#A07C22] text-[#A07C22] text-xs">
+              traffic
+            </span>
+          ) : (
+            <span className="py-1 px-2 rounded-2xl bg-[#F66A57] border border-[#F66A57] text-black text-xs">
+              power
+            </span>
+          )}
         </div>
       </div>
     </div>

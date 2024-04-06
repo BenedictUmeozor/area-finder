@@ -21,10 +21,10 @@ export default function Home() {
             <HomeSearch />
           </div>
           <div className="max-lg:hidden flex-1 grid grid-cols-2 gap-4 self-start">
-            <BoxReview />
-            <BoxReview />
-            <BoxReview />
-            <BoxReview />
+            <BoxReview amenity="network" />
+            <BoxReview amenity="water" />
+            <BoxReview amenity="traffic" />
+            <BoxReview amenity="power" />
           </div>
         </Container>
       </main>
