@@ -4,11 +4,11 @@ import Bookmark from "@/assets/icons/Bookmark";
 import Share from "@/assets/icons/Share";
 import { ChevronRight } from "react-feather";
 import { Suspense, memo, useEffect, useState } from "react";
-import SearchBlue from "@/assets/icons/SearchBlue";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import CheckCircle from "@/assets/icons/CheckCircle";
 import toast from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
+import MobileSearch from "./MobileSearch";
 
 const categories = [
   "schools",
@@ -35,8 +35,6 @@ const SearchHeader = memo(({ action }: Props) => {
   const [searchTerm, setSearchTerm] = useState(
     "Bonny and Clyde Street, Ajao Estate, Lagos"
   );
-  const [address, setAddress] = useState("");
-  const router = useRouter();
 
   const bookmarkLocation = () => {
     toast("Location added to Bookmarks", {
@@ -48,14 +46,6 @@ const SearchHeader = memo(({ action }: Props) => {
         background: "#F2FDF2",
       },
     });
-  };
-
-  const runSearch = () => {
-    if (address) {
-      router.push("/reviews?s=" + address);
-    } else {
-      router.push("/reviews");
-    }
   };
 
   useEffect(() => {
@@ -72,22 +62,7 @@ const SearchHeader = memo(({ action }: Props) => {
           <Header />
         </Suspense>
         <Container>
-          <div className="relative h-14 md:hidden mb-2">
-            <input
-              type="search"
-              placeholder="Enter Address"
-              defaultValue={searchTerm}
-              className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] max-md:pl-[13%] pr-2 text-[0.8rem]"
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <SearchBlue
-              className={
-                "w-5 absolute top-1/2 left-[2%] max-md:left-[4%] -translate-y-1/2 " +
-                (address.length > 0 ? "blink" : "")
-              }
-              onClick={runSearch}
-            />
-          </div>
+          <MobileSearch searchParams={searchTerm} />
           <div className="flex items-center justify-between max-lg:block">
             <div className="flex-[2] max-md:text-center max-lg:mb-4">
               <h3 className="font-semibold text-2xl mb-1 max-md:text-xl">

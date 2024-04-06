@@ -5,16 +5,18 @@ import avatar from "@/assets/avatar.png";
 import Container from "@/components/Container";
 import Logo from "@/components/Logo";
 import SearchBlue from "@/assets/icons/SearchBlue";
-import { KeyboardEvent, memo, useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, memo, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Location } from "@/types/types";
+import { v4 as uuidV4 } from "uuid";
 
 const Header = memo(() => {
   const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState(
+  const [address, setAddress] = useState(
     "Bonny and Clyde Street, Ajao Estate, Lagos"
   );
-  const [address, setAddress] = useState("");
+  const [suggestions, setSuggestions] = useState<Location[] | null>();
   const router = useRouter();
 
   const runSearch = ({ key }: KeyboardEvent<HTMLInputElement>) => {
@@ -23,10 +25,31 @@ const Header = memo(() => {
     }
   };
 
+  const fetchSuggestions = async (event: ChangeEvent<HTMLInputElement>) => {
+    setAddress(event.target.value);
+    const res = await fetch(
+      `https://api.locationiq.com/v1/autocomplete?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${event.target.value}&limit=4&dedupe=1&countrycodes=ng`
+    );
+
+    if (!res.ok) {
+      setSuggestions(null);
+      return;
+    }
+
+    const data = await res.json();
+    setSuggestions(data);
+  };
+
+  const _setAddress = (address: string) => {
+    setAddress(address);
+    setSuggestions(null);
+    router.push("/reviews?s=" + address);
+  };
+
   useEffect(() => {
     if (searchParams.get("s")) {
       const term = searchParams.get("s");
-      setSearchTerm(term!);
+      setAddress(term!);
     }
   }, [searchParams]);
 
@@ -39,12 +62,25 @@ const Header = memo(() => {
             <input
               type="search"
               placeholder="Enter Address"
-              defaultValue={searchTerm}
+              value={address}
               className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2"
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={fetchSuggestions}
               onKeyDown={runSearch}
             />
             <SearchBlue className="w-4 absolute top-1/2 left-[2%] -translate-y-1/2" />
+            {suggestions && (
+              <ul className="absolute top-full left-0 w-full max-h-[700%] z-10 bg-lighter_bg dark:bg-[#242428] rounded-md">
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={uuidV4()}
+                    className="p-2 text-xs hover:bg-lightest_bg dark:hover:bg-darker_bg cursor-pointer"
+                    onClick={() => _setAddress(suggestion.display_name)}
+                  >
+                    {suggestion.display_name}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
         <div className="flex-1 flex items-center justify-end gap-2">
