@@ -13,6 +13,19 @@ import { Review as ReviewType } from "@/types/types";
 import { generateRandomReviews } from "@/utils/functions";
 import ReviewSkeleton from "@/app/reviews/components/ReviewSkeleton";
 import Skeleton from "react-loading-skeleton";
+import { v4 as uuidV4 } from "uuid";
+
+const review = {
+  id: uuidV4(),
+  body: "There is no stable electricity. The roads are fairly good and there is a sense of community. The drainage system is poor and most residents litter their surroundings. There are several grocery stores and Supermarkets.",
+  rating: 4.0,
+  likes: 1000,
+  dislikes: 24,
+  comments: 50,
+  date: `5 months ago`,
+  name: "James T.",
+  anonymous: false,
+};
 
 export default function Page() {
   const [showForm, setShowForm] = useState(false);
@@ -68,6 +81,11 @@ export default function Page() {
               <>
                 {" "}
                 <div className="flex-[3] flex flex-col gap-4 max-md:order-2">
+                  <Review key={uuidV4()} review={review} />
+                  <div className="flex items-center justify-between border-b border-b-[#D9D9D9] pb-4">
+                    <p>Add a comment</p>
+                    <button className="bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-fit py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2">POST</button>
+                  </div>
                   {reviews.map((review) => (
                     <Review key={review.id} review={review} />
                   ))}
