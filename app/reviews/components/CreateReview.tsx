@@ -98,20 +98,20 @@ const CreateReview = memo(({ action, close }: Props) => {
     <div className="fixed top-0 left-0 z-10 w-full h-screen bg-[#1D3045] dark:bg-[#1E1E1E] opacity-[0.98] flex items-center justify-center">
       <form
         onSubmit={submit}
-        className="max-w-2xl w-full bg-[#FAFCFD] rounded border border-[#D4DCF1] dark:bg-[#171717] p-4 py-6"
+        className="w-[90%] max-w-2xl bg-[#FAFCFD] rounded border border-[#D4DCF1] dark:bg-[#171717] p-4 py-6"
       >
         <h2 className="text-center mb-2 font-[500]">Review Location</h2>
         <p className="text-xl font-semibold mb-4">{searchTerm}</p>
         <div className="mb-4 relative">
           <div
-            className="flex items-center justify-between bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 h-12 cursor-pointer"
+            className="flex items-center justify-between bg-lighter_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 h-12 cursor-pointer"
             onClick={() => setShowAmenities((prev) => !prev)}
           >
             <span>Select Amenities</span>
             <ChevronDown className="w-4" />
           </div>
           {showAmenities && (
-            <div className="bg-lightest_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 max-md:grid-cols-3 p-4">
+            <div className="bg-lighter_bg dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg px-2 absolute top-12 left-0 w-full z-20 grid grid-cols-5 max-md:grid-cols-1 max-md:gap-1 p-4 max-md:max-h-[700%] overflow-y-auto">
               {amenities.map((amenity) => (
                 <div
                   key={uuidV4()}

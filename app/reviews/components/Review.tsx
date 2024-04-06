@@ -25,13 +25,13 @@ const Review = memo(({ review }: Props) => {
               alt="avatar"
               height={50}
               width={50}
-              className="w-10 rounded-[50%]"
+              className="w-10 max-md:w-8 rounded-[50%]"
             />
-            <p className="text-lg font-semibold">
+            <p className="text-lg max-md:text-base font-semibold">
               {review.anonymous ? "Anonymous" : "James T."}
             </p>
           </div>
-          <p className="text-[0.9rem] text-[#1E1E1E99] dark:text-[#FBFAFC99]">
+          <p className="text-[0.9rem] max-md:text-xs text-[#1E1E1E99] dark:text-[#FBFAFC99]">
             {review.date}
           </p>
         </div>
@@ -40,7 +40,7 @@ const Review = memo(({ review }: Props) => {
           <p>{review.rating}</p>
         </div>
       </header>
-      <p className="py-2">
+      <p className="py-2 max-md:text-[0.95rem]">
         {review.body}
       </p>
       <footer>

@@ -84,7 +84,7 @@ export default function Page() {
                 alt="Apple"
                 height={50}
                 width={50}
-                className="w-10"
+                className="w-8"
               />
               Log in with Apple
             </button>

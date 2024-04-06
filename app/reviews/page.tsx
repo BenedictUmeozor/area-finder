@@ -47,6 +47,14 @@ export default function Page() {
     });
   };
 
+  useEffect(() => {
+    if (showForm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showForm]);
+
   return (
     <>
       {showForm && <CreateReview action={submitForm} close={removeForm} />}
@@ -55,7 +63,7 @@ export default function Page() {
           <SearchHeader action={displayForm} />
         </Suspense>
         <main>
-          <Container className="h-full flex max-md:flex-col py-6 gap-[3.5%]">
+          <Container className="h-full flex max-md:flex-col py-6 gap-[3.5%] max-md:gap-8">
             {reviews.length > 0 ? (
               <>
                 {" "}

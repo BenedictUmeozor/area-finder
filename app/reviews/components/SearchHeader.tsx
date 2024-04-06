@@ -77,12 +77,12 @@ const SearchHeader = memo(({ action }: Props) => {
               type="search"
               placeholder="Enter Address"
               defaultValue={searchTerm}
-              className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] pr-2 text-[0.8rem]"
+              className="h-full w-full focus:outline-none bg-[#FBFAFC] dark:bg-darkest_bg  border rounded border-last_light_bg dark:border-darker_bg pl-[7%] max-md:pl-[13%] pr-2 text-[0.8rem]"
               onChange={(e) => setAddress(e.target.value)}
             />
             <SearchBlue
               className={
-                "w-4 absolute top-1/2 left-[2%] -translate-y-1/2 " +
+                "w-5 absolute top-1/2 left-[2%] max-md:left-[4%] -translate-y-1/2 " +
                 (address.length > 0 ? "blink" : "")
               }
               onClick={runSearch}
@@ -103,7 +103,7 @@ const SearchHeader = memo(({ action }: Props) => {
                 {categories.slice(0, 5).map((c) => (
                   <button
                     key={c}
-                    className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
+                    className="flex-1 text-xs text-center bg-[#FBFAFC] border rounded-sm border-[#ccc] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
                   >
                     {c}
                   </button>
@@ -112,19 +112,19 @@ const SearchHeader = memo(({ action }: Props) => {
             </div>
             <div className="flex-1 flex items-center gap-2 max-md:max-w-full max-lg:max-w-md">
               <button
-                className="flex-1 bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] h-11 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear"
+                className="flex-1 bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.85rem] h-11 max-md:h-9 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear"
                 onClick={action}
               >
                 leave a review
               </button>
               <div className="flex-1 flex items-center gap-2">
                 <button
-                  className="flex-1 border rounded border-light_button flex items-center justify-center h-11"
+                  className="flex-1 border rounded border-light_button flex items-center justify-center h-11 max-md:h-9"
                   onClick={bookmarkLocation}
                 >
                   <Bookmark className="w-5" />
                 </button>
-                <button className="flex-1 border rounded border-light_button flex items-center justify-center h-11">
+                <button className="flex-1 border rounded border-light_button flex items-center justify-center h-11 max-md:h-9">
                   <Share className="w-5" />
                 </button>
               </div>
@@ -135,7 +135,7 @@ const SearchHeader = memo(({ action }: Props) => {
               {categories.map((c) => (
                 <button
                   key={c}
-                  className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#1E1E1E] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
+                  className="flex-1 text-[0.9rem] text-center bg-[#FBFAFC] border rounded-sm border-[#ccc] dark:border-[#FBFAFC] dark:bg-darkest_bg capitalize min-w-fit mr-1 px-2 mb-1"
                 >
                   {c}
                 </button>
