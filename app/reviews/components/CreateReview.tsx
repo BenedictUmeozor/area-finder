@@ -125,7 +125,7 @@ const CreateReview = memo(({ action, close }: Props) => {
                     onChange={(e) => modifyAmenities(e.target.checked, amenity)}
                     defaultChecked={chosenAmenities.includes(amenity)}
                   />
-                  <label htmlFor={amenity}>{amenity}</label>
+                  <label htmlFor={amenity} className="text-[0.85rem]">{amenity}</label>
                 </div>
               ))}
             </div>

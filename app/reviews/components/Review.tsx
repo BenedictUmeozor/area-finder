@@ -40,7 +40,7 @@ const Review = memo(({ review }: Props) => {
           <p>{review.rating}</p>
         </div>
       </header>
-      <p className="py-2 max-md:text-[0.95rem]">
+      <p className="py-2 max-md:text-[0.925rem]">
         {review.body}
       </p>
       <footer>
