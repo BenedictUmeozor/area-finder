@@ -20,7 +20,7 @@ export default function Home() {
             </p>
             <HomeSearch />
           </div>
-          <div className="max-lg:hidden flex-1 grid grid-cols-2 gap-4 self-start">
+          <div className="max-lg:hidden flex-1 grid grid-cols-2 gap-4 self-start bg-lighter_bg dark:bg-[#242428]">
             <BoxReview amenity="network" />
             <BoxReview amenity="water" />
             <BoxReview amenity="traffic" />

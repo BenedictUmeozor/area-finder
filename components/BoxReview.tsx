@@ -27,7 +27,7 @@ export default function BoxReview({ className = "", amenity }: Props) {
             className="w-10 rounded-[50%]"
           />
           <div>
-            <h4 className="font-[500] text-lg">James T.</h4>
+            <h4 className="font-semibold text-base">James T.</h4>
             <p className="text-xs">5 months ago</p>
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function BoxReview({ className = "", amenity }: Props) {
         </div>
       </header>
 
-      <p className="my-2">
+      <p className="my-2 text-[0.9rem]">
         There is no stable electricity. The roads are fairly good and there is a
         sense of community. The drainage system is poor and most residents
         litter their surroundings. There are lots stores and Supermarkets.
@@ -60,19 +60,19 @@ export default function BoxReview({ className = "", amenity }: Props) {
         </div>
         <div className="flex-1">
           {amenity === "network" ? (
-            <span className="py-1 px-2 rounded-2xl bg-[#FCDCEF] border border-[#821958] text-[#821958] text-xs">
+            <span className="py-1 cursor-pointer px-2 rounded-2xl bg-[#FCDCEF] border border-[#821958] text-[#821958] text-xs">
               network
             </span>
           ) : amenity === "water" ? (
-            <span className="py-1 px-2 rounded-2xl bg-[#D1E4FA] border border-[#2863B8] text-[#2863B8] text-xs">
+            <span className="py-1 cursor-pointer px-2 rounded-2xl bg-[#D1E4FA] border border-[#2863B8] text-[#2863B8] text-xs">
               water
             </span>
           ) : amenity === "traffic" ? (
-            <span className="py-1 px-2 rounded-2xl bg-[#F5E9CB] border border-[#A07C22] text-[#A07C22] text-xs">
+            <span className="py-1 cursor-pointer px-2 rounded-2xl bg-[#F5E9CB] border border-[#A07C22] text-[#A07C22] text-xs">
               traffic
             </span>
           ) : (
-            <span className="py-1 px-2 rounded-2xl bg-[#F66A57] border border-[#F66A57] text-black text-xs">
+            <span className="py-1 cursor-pointer px-2 rounded-2xl bg-[#F66A57] border border-[#F66A57] text-black text-xs">
               power
             </span>
           )}

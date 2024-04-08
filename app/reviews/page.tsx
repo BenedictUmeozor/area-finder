@@ -78,8 +78,11 @@ export default function Page() {
                 <div className="flex-[3] flex flex-col gap-4 max-md:order-2">
                   <Review key={reviewData.id} review={reviewData} />
                   <div className="flex items-center justify-between border-b border-b-[#D9D9D9] pb-4">
-                    <p>Add a comment</p>
-                    <button className="bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-fit py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2">
+                    <p className="max-md:text-[0.925rem]">Add a comment</p>
+                    <button
+                      className="bg-light_button dark:bg-dark_button text-dark_text dark:text-light_text uppercase text-[0.9rem] w-fit py-3 rounded px-5 hover:bg-light_button_second transition-all duration-200 ease-linear max-md:py-2"
+                      onClick={displayForm}
+                    >
                       POST
                     </button>
                   </div>
